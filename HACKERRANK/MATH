@@ -1,0 +1,20 @@
+#1 POLAR COORDINATES
+import cmath
+b=cmath.polar(complex(input()))
+for i in b:
+    print(i)
+
+#2 MOD DIVMOD
+d = divmod(int(input()), int(input()))
+print(*d, d, sep='\n')
+
+#3 POWER- MOD POWER
+a, b, m = [int(input()) for _ in range(3)]
+print(pow(a, b), pow(a, b, m), sep='\n')
+
+#4  INTEGERS COME IN ALL SIZE
+a=int(input())
+b=int(input())
+c=int(input())
+d=int(input())
+print(pow(a,b)+pow(c,d))
