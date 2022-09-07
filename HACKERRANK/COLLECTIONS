@@ -45,4 +45,4 @@ for _ in range(int(input())):
         d.popleft()
     elif line[0] == 'appendleft':
         d.appendleft(line[1])
-print(*d)'''
+print(*d)
