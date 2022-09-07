@@ -1,0 +1,44 @@
+#1 SWAP CASE
+def swap_case(s):
+    num = ""
+    for let in s:
+        if let.isupper() == True:
+            num+=(let.lower())
+        else:
+            num+=(let.upper())
+    return num
+
+if __name__ == '__main__':
+    s = input()
+    result = swap_case(s)
+    print(result)
+   
+#2 SPLIT AND JOIN
+def split_and_join(line):
+    line = line.split()
+    line = "-".join(line)
+    return line
+
+if __name__ == '__main__':
+    line = input()
+    result = split_and_join(line)
+    print(result)
+    
+#3 WHAT'S YOUR NAME
+def print_full_name(first, last):
+     print("Hello " + first, last + "! You just delved into python.")
+
+if __name__ == '__main__':
+    first_name = input()
+    last_name = input()
+    print_full_name(first_name, last_name)
+    
+#4 MUTATIONS
+def mutate_string(string, position, character):
+     return string[:position]+character+string[position+1:]
+
+if __name__ == '__main__':
+    s = input()
+    i, c = input().split()
+    s_new = mutate_string(s, int(i), c)
+    print(s_new)
