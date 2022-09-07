@@ -1,0 +1,57 @@
+#1 LIST COMPREHENSIONS
+if __name__ == '__main__':
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input())
+    print(list([i,j,k] for i in range(x+1) for j in range(y+1) for k in range(z+1)  if i+j+k !=n))
+
+#2 FIND THE RUNNER UP-SCORE
+if __name__ == '__main__':
+    n = int(input())
+    arr = map(int, input().split())
+    print(sorted(list(set(arr)))[-2])
+
+#3 LISTS
+if __name__ == '__main__':
+    N = int(input())
+    Output = []
+    for i in range(0,N):
+        ip = input().split()
+        if ip[0] == "print":
+            print(Output)
+        elif ip[0] == "insert":
+            Output.insert(int(ip[1]),int(ip[2]))
+        elif ip[0] == "remove":
+            Output.remove(int(ip[1]))
+        elif ip[0] == "pop":
+            Output.pop()
+        elif ip[0] == "append":
+            Output.append(int(ip[1]))
+        elif ip[0] == "sort":
+            Output.sort()
+        else:
+            Output.reverse()
+
+#4 FINDING THE PERCENTAGE
+if __name__ == '__main__':
+    n = int(input())
+    student_marks = {}
+    for _ in range(n):
+        name, *line = input().split()
+        scores = list(map(float, line))
+        student_marks[name] = scores
+    query_name = input()
+    if query_name in student_marks:
+        x = ((float(student_marks[query_name][0]) + float(student_marks[query_name][1]) + float(student_marks[query_name][2])) / 3)
+
+    print('%.2f' % x)
+
+#5 TUPLES
+if __name__ == '__main__':
+    n = int(raw_input())
+    integer_list = map(int, raw_input().split())
+    tup = ()
+    for x in integer_list:
+        tup+=(x,)
+    print(hash(tup))
