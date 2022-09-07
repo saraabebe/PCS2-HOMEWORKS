@@ -1,0 +1,65 @@
+#1 INTRODUCTION TO SETS
+def average(array):
+    # your code goes here
+    array = set(array)
+    return sum(array) / len(array)
+if __name__ == '__main__':
+    n = int(input())
+    arr = list(map(int, input().split()))
+    result = average(arr)
+    print(result)
+
+#2 NO IDEA!
+io = input().split()
+m = int(io[0])
+n = int(io[1])
+storage = list()
+count = 0
+storage = list(map(int, input().strip().split()))
+A = set(map(int, input().strip().split()))
+B = set(map(int, input().strip().split()))
+for i in storage:
+    if i in A:
+        count = count+1
+    if i in B:
+        count = count-1
+print(count)
+
+#3 SYMMETRIC DIFFERENCE
+N,a=int(input()),map(int,input().split())
+M,b=int(input()),map(int,input().split())
+a=set(a)
+b=set(b)
+
+for x in sorted(a.difference(b).union(b.difference(a))):
+    print(x)
+
+#4 SET.ADD()
+N = int(input())
+countries = set()
+for i in range(N):
+    countries.add(input())
+print(len(countries))
+
+
+#math 4ex
+#1 POLAR COORDINATES
+import cmath
+b=cmath.polar(complex(input()))
+for i in b:
+    print(i)
+
+#2 MOD DIVMOD
+d = divmod(int(input()), int(input()))
+print(*d, d, sep='\n')
+
+#3 POWER- MOD POWER
+a, b, m = [int(input()) for _ in range(3)]
+print(pow(a, b), pow(a, b, m), sep='\n')
+
+#4  INTEGERS COME IN ALL SIZE
+a=int(input())
+b=int(input())
+c=int(input())
+d=int(input())
+print(pow(a,b)+pow(c,d))
