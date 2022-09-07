@@ -1,0 +1,117 @@
+#1 CAMELCASE
+import math
+import os
+import random
+import re
+import sys
+def camelcase(s):
+    count = 1
+    for char in s:
+        if char.isupper():
+            count += 1
+    return count
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    result = camelcase(s)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+#2 STRONG PASSWORD
+import math
+import os
+import random
+import re
+import sys
+def minimumNumber(n, password):
+    spl = '!@#$%^&*()-+'
+    l = [0,0,0,0]
+    
+    for char in password:
+        if char.isdigit():
+            l[0]= 1
+        elif char.islower():
+            l[1]= 1 
+        elif char.isupper():
+            l[2] = 1
+        elif char in spl:
+            l[3] = 1 
+    return max(6-len(password) , 4 - sum(l))          
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input().strip())
+    password = input()
+    answer = minimumNumber(n, password)
+    fptr.write(str(answer) + '\n')
+    fptr.close()
+
+#3 SUPER REDUCED STRING
+import math
+import os
+import random
+import re
+import sys
+def superReducedString(s):
+    # Write your code here
+    result = []
+    for i in range(len(s)):
+        if len(result) ==0 or result[-1] != s[i]:
+            result.append(s[i])
+        else:
+            result.pop()         
+    if len(result) == 0 :
+        return 'Empty String'
+    else: 
+        return ''.join(result)
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    result = superReducedString(s)
+    fptr.write(result + '\n')
+    fptr.close()
+
+#4 HACKERRANK IN A STRING
+import math
+import os
+import random
+import re
+import sys
+def hackerrankInString(s):
+    target = 'hackerrank'
+    n = len(target)
+    i= 0 
+    for char in s:
+        if char == target[i]:
+            i += 1
+            if i == n:
+                return 'YES'
+    return 'NO'
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    q = int(input().strip())
+    for q_itr in range(q):
+        s = input()
+        result = hackerrankInString(s)
+        fptr.write(result + '\n')
+    fptr.close()
+
+#5 PANGRAMS
+import math
+import os
+import random
+import re
+import sys
+def pangrams(s):
+    # Write your code here
+    temp = set(s.lower()) - set(' ')
+    
+    if len(temp) == 26:
+        return 'pangram'
+    else :
+        return 'not pangram'    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    result = pangrams(s)
+    fptr.write(result + '\n')
+    fptr.close()
