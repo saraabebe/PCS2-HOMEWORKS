@@ -1,0 +1,364 @@
+#transitions and trasvertions
+f = open("C:\\Users\\ASUS\\OneDrive\\Desktop\\Hacker\\rosalind_tran (1).txt", "r")
+mat = []
+str1 = f.read()
+str1 = str1.replace("Rosalind_", "")
+str1 = str1.replace("\n", "")
+str1 = ''.join([i for i in str1 if not i.isdigit()])
+mat = str1.split(">")
+mat.remove("")
+
+def tAndT(s1, s2):
+    t1 = 0
+    t2 = 0
+
+    for i in range(0, len(s1)):
+        if (s1[i] != s2[i]):
+            if (s1[i] == 'A' and s2[i] == 'G'):
+                t1 = t1 + 1
+            elif (s1[i] == 'G' and s2[i] == 'A'):
+                t1 = t1 + 1
+            elif (s1[i] == 'C' and s2[i] == 'T'):
+                t1 = t1 + 1
+            elif (s1[i] == 'T' and s2[i] == 'C'):
+                t1 = t1 + 1
+            else:
+                t2 = t2 + 1
+    return t1 / t2
+
+s1, s2 = mat
+print(tAndT(s1, s2))
+
+
+
+#find a spliced motif
+def find_motif(data, motif):
+    position, indices = -1, ''
+    for nucleotide in motif:
+        position = data.find(nucleotide, position+1)
+        indices += str(position+1) + ' '
+    print(indices)
+
+
+with open('C:\\Users\\ASUS\\OneDrive\\Desktop\\Hacker\\rosalind_sseq.txt', 'r') as file:
+    content = file.read()
+DNAs_number, lines, line_number, DNAs = content.count('>'), content.splitlines(), 0, []
+for i in range(DNAs_number):
+    DNA = ''
+    line_number += 1
+    while lines[line_number][0] != '>':
+        DNA += lines[line_number]
+        line_number += 1
+        if line_number+1 > len(lines):
+            break
+    DNAs.append(DNA)
+
+find_motif(DNAs[0], DNAs[1])
+
+
+#Genome Assembly as Shortest Superstring
+f = open("C:\\Users\\ASUS\\OneDrive\\Desktop\\Hacker\\rosalind_long.txt", "r")
+mat = []
+str1 = f.read()
+str1 = str1.replace("Rosalind_", "")
+str1 = str1.replace("\n", "")
+str1 = ''.join([i for i in str1 if not i.isdigit()])
+mat = str1.split(">")
+mat.remove("")
+
+def long(mat, bbb=''):
+    if (len(mat) == 0):
+        return bbb
+
+    elif (len(bbb) == 0):
+        bbb = mat.pop(0)
+        return long(mat, bbb)
+
+    else:
+        for i in range(len(mat)):
+            a = mat[i]
+            for j in range(len(a) // 2):
+                c = len(a) - j
+                if bbb.startswith(a[j:]):
+                    mat.pop(i)
+                    return long(mat, a[:j] + bbb)
+                if bbb.endswith(a[:c]):
+                    mat.pop(i)
+                    return long(mat, bbb + a[c:])
+print(long(mat))
+
+
+#completing a tree
+def complete_tree(nodes, adjacency_list):
+   
+    existing_edges = []
+
+    for edge in adjacency_list:
+        existing_edges.append(edge)
+
+    extra_edges = (nodes - 1) - len(existing_edges)
+
+    return extra_edges
+
+with open('C:\\Users\\ASUS\\OneDrive\\Desktop\\Hacker\\rosalind_tree.txt', 'r') as myfile:
+    lines = myfile.read().splitlines()
+    n = int(lines[0])
+    edges = lines[1:]
+
+print(complete_tree(n, edges))
+
+
+#partial permutations
+def pcalculator(a, b):
+ 
+    partial_perm = 1
+
+    for i in range(b):
+        partial_perm *= (a - i)
+
+    total = partial_perm % 1000000
+
+    return total
+
+
+print(pcalculator(87, 10))
+
+
+# open reading frame
+def revcomp(s):
+	com= {'A':'T', 'C':'G', 'G':'C', 'T':'A'}
+	result= ''
+	for i in s:
+		result += com[i]
+	return result[::-1]
+
+dna = "GGAACACATTCGAGGACGACTATCATGATCTAAGATCACATACAGGCGAATGGAAGAAAGTGGGATTCCTAACTTCACACTTTCTGTCCAATCTAGACACTAGCGCAGGATCTATGCGGGATTGTGCAGGCAGGCCCCCATCTGGCAGTACGGTGAAAGCTATACCATCGCTTCTGTTTAGGCATCATGTCGGAACGGACGGCTCACCGCTGACGCTCGGGGCCAACTATGCGTCATCGCAGTATTCATATCCATCAAAACTATCAGCCCTTACCTTTGGCGCAACGTGTCATCGCAAAGCCCTCGTCAGTATATCACTCCTGGCCAGAGTCTAACTGATACTCCACCAACTGCGCACGCGAAAATATCCGATAGGTGCTGATTGGTGTAGCAAAGAGCAGGCTTCTAACTTCATGACGCAAATACACGACAAAAAGATTGCCCCAATGCTGTTCTTTGTAGCTCGTGCCAGTGTCGCGTAGCTACGCGACACTGGCACGAGCTACAAAGAACAGCATGCGAGATCTGTTTTACTTGAGAGAGTTCTAGGAGTCCCACCGCACTCTGCCCATGAAGTCTCGCCCCTTTATCAAATGCGTACATCACGAGTGGTTCCTCAGTGCGTAAGAGCTGAACAGAGAGGTGGGTGGTAAGGTCGCTGGCCTTACCCTTGCTGGGCTGTCCTATCTTCCCGCCGGCCAAGAACAGTACGCATGGGGTCTGGTTGTGTGGAATAAGCTAGCTTAACAACAACCTAATACGACTGTCGCCGCTTGCGTGCTCCCTTAAGTAGAGTCTCGCGTTATTGCCCAGACCCTGTGAGTCTGATGCATCTGTACCAAAGGAGGAGCGTTGGTGCAGATAGAGTCGAAAACCAAGGTTACACAATGGCCTACATAATGCAATGTAACAGTGTTAATTGGTAATTACCGCTCTTATAACCAATTAGGTAGACGGCGTTATG"
+
+table = """TTT F      CTT L      ATT I      GTT V
+TTC F      CTC L      ATC I      GTC V
+TTA L      CTA L      ATA I      GTA V
+TTG L      CTG L      ATG M      GTG V
+TCT S      CCT P      ACT T      GCT A
+TCC S      CCC P      ACC T      GCC A
+TCA S      CCA P      ACA T      GCA A
+TCG S      CCG P      ACG T      GCG A
+TAT Y      CAT H      AAT N      GAT D
+TAC Y      CAC H      AAC N      GAC D
+TAA Stop   CAA Q      AAA K      GAA E
+TAG Stop   CAG Q      AAG K      GAG E
+TGT C      CGT R      AGT S      GGT G
+TGC C      CGC R      AGC S      GGC G
+TGA Stop   CGA R      AGA R      GGA G
+TGG W      CGG R      AGG R      GGG G"""
+table = dict(zip(table.split()[::2],table.split()[1::2]))
+
+stop = ["TAA","TAG","TGA"]
+proteins = []
+for s in [dna,revcomp(dna)]:
+    for i in range(len(s)):
+        if s[i:i+3] == "ATG":
+            for j in range(i,len(s),3):
+                if s[j:j+3] in stop:
+                    c = [s[k:k+3] for k in range(i,j,3)]
+                    proteins.append( ''.join(map(lambda x:table[x],c)) )
+                    break
+
+for seq in set(proteins):
+    print (seq)
+
+
+#finding a protein motif
+import urllib2
+
+def read_data(file):
+    fp = open(file, 'r')
+    seq = {}
+    for line in fp:
+        query = line.strip()
+        url = 'http://www.uniprot.org/uniprot/' + query + '.fasta'
+     
+        req = urllib2.Request(url) 
+        con = urllib2.urlopen(req)
+        doc = con.readlines()
+        for line in doc:
+            if line.startswith('>'):
+                seq[query] = ''
+            else:
+                seq[query] += line.strip('\n')
+        con.close()
+    fp.close()
+    return seq
+
+def obtain_motif(file):
+    import re
+    seq = read_data(file)
+    for i in seq.keys():
+        motif_point = []
+        p = re.compile(r'N[^P](S|T)[^P]')
+        for j in range(len(seq[i])-3):
+            if p.match(seq[i][j:j+4]):
+                motif_point.append(str(j+1))
+
+        print(' '.join(motif_point))
+        return motif_point
+
+if __name__ == "__main__":
+    obtain_motif("C:/Users/ASUS/OneDrive/Desktop/rosalind_mprt2.txt")
+
+
+#RNA splicing
+rna_to_aminoacid_dictionary =  {'UUU' : 'F', "UUC": 'F', 'UUA' : 'L', 'UUG' : 'L', 'UCU' : 'S' , 'UCA' :'S', 'UCC' : 'S', 'UCG' : 'S', 'UAU' : 'Y', 'UAC': 'Y', 'UAA': 'STOP' , 'UAG': 'STOP', 'UGU' : 'C', 'UGC': 'C', 'UGA' : 'STOP', 'UGG': 'W', 'CUU' : 'L', 'CUC' : 'L', 'CUA': 'L', 'CUG': 'L', 'CCU': 'P', 'CCC' : 'P', 'CCA' : 'P', 'CCG' : 'P', 'CAU' : 'H', 'CAC':'H', 'CAA':'Q','CAG':'Q','CGU': 'R','CGC':'R','CGA':'R','CGG':'R','AUU':'I','AUC':'I','AUA':'I','AUG':'M','ACU':'T','ACC':'T','ACA':'T','ACG':'T','AAU':'N','AAC':'N','AAA':'K','AAG':'K','AGU':'S','AGC':'S','AGA':'R','AGG':'R','GUU':'V','GUC':'V','GUA':'V','GUG':'V','GCU':'A','GCC':'A','GCA':'A','GCG':'A','GAU':'D','GAC':'D','GAA':'E','GAG':'E','GGU':'G','GGC':'G','GGA':'G','GGG':'G'}
+
+file = open("C:\\Users\\ASUS\\OneDrive\\Desktop\\Hacker\\rosalind_splc (1).txt", "r")
+
+def extract_sequence_from_input(file):
+    sequences = []
+    result = ""       
+  
+    for line in file:
+        
+        if ">" in line:
+            sequences.append(result)
+            result = ""
+      
+        else:
+            
+            if "\n" in line:
+                result += line[:len(line) - 1]
+            else:
+                result += line
+   
+    sequences.append(result)
+  
+    sequences.remove('')
+    return sequences
+
+sequences = extract_sequence_from_input(file)
+
+dna_string = sequences[0]
+
+introns = sequences[1:]
+
+introns.sort(reverse = True)
+
+for intron in introns:
+    dna_string = dna_string.replace(intron,"")
+dna_string = dna_string.replace("T","U")
+
+for i in range(0, len(dna_string) - 3, 3):
+    print(rna_to_aminoacid_dictionary[dna_string[i: i +3]],end='')
+
+
+#Perfect Matchings and RNA Secondary Structures
+from Bio import SeqIO
+
+def factorial(n):
+    value = 1
+    for i in range(n):
+        value *= (i+1)
+    return value
+
+def pmch(t):
+    a = t.count('A')
+    c = t.count('C')
+    print(a, c)
+    return factorial(a) * factorial(c)
+if __name__ == "__main__":
+    seq_name, seq_string = [], []
+    with open ("C:/Users/ASUS/OneDrive/Desktop/rosalind_pmch1.txt",'r') as fa:
+        for seq_record  in SeqIO.parse(fa,'fasta'):
+            seq_name.append(str(seq_record.name))
+            seq_string.append(str(seq_record.seq))
+    string = seq_string[0]
+    print(pmch(string))
+
+#overlap graphs
+with open("C:\\Users\\ASUS\\OneDrive\\Desktop\\Hacker\\rosalind_grph (3).txt", "r") as f:
+    s = f.read().replace('\n', '').split('>')[1::]
+    # print(s)
+    d = {}
+    for i in s:
+        d.setdefault(i[:13:], i[13::])
+    print(d)
+    se = set()
+    for i in d.keys():
+        for j in d.keys():
+            if i != j:
+                k1, k2 = d[i][:3:], d[j][len(d[j])-3:len(d[j]):]
+                if k1 == k2:
+                    se.add(j + ' ' + i)
+                # print(i, j)
+                # print(i, k1, j, k2)
+    for i in se:
+        print(i)
+        
+
+
+#longest increasing subsequence
+def subsequence(seq):
+    
+
+    P = [None] * len(seq)  
+    M = [None] * len(seq) 
+
+    M[0] = 0
+
+    
+    for i in range(1, len(seq)):
+
+        
+        low = 0
+        high = L
+
+        if seq[M[high - 1]] < seq[i]:
+            j = high
+
+        else:
+            while high - low > 1:
+                mid = (high + low) // 2
+
+                if seq[M[mid -1]] < seq[i]:
+                    low = mid
+                else:
+                    high = mid
+
+            j = low #sets default value to 0
+
+        P[i] = M[j - 1]
+
+        if j == L or seq[i] < seq[M[j]]:
+            M[j] = i
+            L = max(L, j + 1)
+
+    result = []
+    pos = M[L - 1]
+
+    for k in range(L):
+        result.append(seq[pos])
+        pos = P[pos]
+
+    return result[::-1]
+
+with open('C:\\Users\\ASUS\\OneDrive\\Desktop\\Hacker\\rosalind_lgis (4).txt', 'r') as myfile:
+    mylines = myfile.read().splitlines()
+    n = int(mylines[0])
+    permutation = [int (x) for x in mylines[1].split()]
+
+incr = subsequence(permutation)
+
+
+decr = subsequence(permutation[::-1])[::-1]
+
+print(*incr)
+print(*decr)
+
+#Perfect Matchings and RNA Secondary Structures
+import math
+RNA = """ACAGCUUACUUACUUAGGCACUCGUGGAACUACCGCGUAAGAUUUUAGCACGAUCGAGUG
+GGCCCCCAGGGCGGUCAU
+ """
+AU = RNA.count("A")
+GC = RNA.count("G")
+
+matchings = math.factorial(AU) * math.factorial(GC)
+print(matchings)
